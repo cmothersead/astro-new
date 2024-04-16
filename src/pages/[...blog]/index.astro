@@ -1,0 +1,18 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import SinglePost from '~/components/blog/SinglePost.astro';
+
+import { getStaticPathsBlogPost } from '~/utils/blog';
+import { getCanonical, getPermalink } from '~/utils/permalinks';
+
+export async function getStaticPaths() {
+    return await getStaticPathsBlogPost();
+}
+
+const { post } = Astro.props;
+const url = getCanonical(getPermalink(post.permalink, 'post'));
+---
+
+<Layout>
+    <SinglePost post={{...post}} url={url} />
+</Layout>
